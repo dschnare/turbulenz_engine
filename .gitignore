@@ -17,3 +17,7 @@ jslib-refcheck/
 
 # default local server folder
 /devserver/
+
+
+# Windows files
+[Tt]humbs.db
