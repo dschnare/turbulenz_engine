@@ -235,7 +235,17 @@ if platform.system() == "Windows":
                 result = None
             return result
 
-        versions_to_check = versions_to_check or ['9.0', '10.0', '11.0']
+        versions_to_check = versions_to_check or ['9.0', '10.0', '11.0', '12.0']
+
+        if '12.0' in versions_to_check:
+            vs_path = _query_key_value(sxs_key, '12.0')
+            if vs_path is not None:
+                devenv_path = os.path.join(vs_path, 'Common7', 'IDE', 'devenv.com')
+                if os.path.exists(devenv_path):
+                    return (devenv_path, '2013', None)
+                devenv_path = os.path.join(vs_path, 'Common7', 'IDE', 'WDExpress.exe')
+                if os.path.exists(devenv_path):
+                    return (devenv_path, '2013', None)
 
         if '11.0' in versions_to_check:
             vs_path = _query_key_value(sxs_key, '11.0')
@@ -293,7 +303,8 @@ if platform.system() == "Windows":
         versions_map = {
             '2008': 9.0,
             '2010': 10.0,
-            '2012': 11.0
+            '2012': 11.0,
+            '2013': 12.0
         }
 
         # Turbulenz tools are built 32bit so always check for these compilers
