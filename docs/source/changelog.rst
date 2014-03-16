@@ -10,6 +10,108 @@ Changelog
 Version 1.x-dev
 ---------------
 
+Version 1.3.1
+-------------
+
+2014-03-07
+
+- Modified simplerendering.cgfx to not use structs (feature not yet implemented in IE11)
+- Updated TypeScript documentation for 0.9.1
+- Remapped semantics for devices with fewer than 16 vertex attributes
+- Updated gamepad detection to support latest specification
+- Updated fontManager documentation
+- Minor fix to subtitles sample
+- Correction of various tslint errors
+- Fixed an issue in the SoundDevice when gain was ignored on a source before playing
+- Updated AssetCache to version 2:
+
+  * Includes a new 'get' function
+  * Modified 'request' behavior to include a callback
+  * Improved speed and memory allocations
+  * Improved handling of the case where assets are forced out during loading
+
+- Fixed WebGL extension checking to avoid warnings in Firefox
+- Fixed mipmap initialization and debug checking
+- Fixed fontmanager mipmaps enabled by default
+- Fixed wireframe drawing of triangle strips
+- Fixed mime-type for mp3 files in SoundDevice
+- SoundDevice improvements for playing/stoping sources
+- Added node pool and extents to reduce number of ArrayBuffers in AABBTree
+- Various memory saving optimizations for scenes, sounds, physics, forward rendering
+- Enabled tslint and fixed basic errors on tslib
+- TypeScript files can now be linted by using the command:
+  python manage.py check-ts path/to/file.ts
+- Fixed node extents update when removing its last renderable or its last light.
+- Added support for building tools with Visual Studio 2013
+- Line spacing support in FontManager
+
+Version 1.3
+-----------
+
+2014-02-11
+
+- Added subtitles sample:
+
+  * Demonstrates the creation of subtitles from multiple languages
+  * Example shows English and Japanese variants
+  * Added support for 8bit font rendering in font.cgfx
+
+- Added FontManager support for multiple pages:
+
+  * New properties *linesWidth* and *glyphCounts* added to the object returned by fontManager.calculateTextDimensions
+  * Added argument *dimensions* to font.calculateTextDimensions
+  * Replaced generateTextVertices function by generatePageTextVertices, now with page
+    compatibility
+  * Added argument *pageIdx* to font.drawTextVertices
+  * Added argument *dimensions* to font.drawTextRect
+
+- Modified FontManager to use tri-strip instead of fan for single characters. Temporary fix for IE11.
+- PhysicsManager optimisations
+- Update protolib library (version 0.2.1):
+
+  * Corrected 2D text rendering order
+  * Added additional advanced callbacks/modified call back behavior
+
+- Fixed an issue in draw2D where sprites were incorrectly scaled around the origin
+- Added debug assertion for draw2D when npot textures are used with mipmaps not supported
+- Fixed missing copyright comments
+- Add viewBox transforms to svg implementation
+- Fixed the handling of gamesession create to treat 404s as if services are unavailable
+- Request handler now retries if 504 responses are encountered instead of failing immediately
+- Improved handling of non-JSON responses to API requests
+- Added support for tar files to deps.yaml and build process
+- General improvements to the soundDevice for stability and the process of incorrectly loaded files
+- Performance improvements to asset loading, especially for large files
+- Work-around fixes to support IE11 for incomplete WebGL specification
+- New feature: GPU-based particle system for high-performance particles simulated on the graphics card
+
+  * High level particle system API for managing the creation and destruction of particles systems from particle archetypes
+  * Low level particle system API for controlling the updating of the particles on the GPU
+  * Plug-in architecture allowing high level of customization to the particle simulation
+  * A sample demonstrating the features of the GPU particle system
+  * Comprehensive documentation explaining the API and architecture including diagrams
+
+- Various documentation corrections
+- Added support to the Camera for specifying the near/far plane to getFrustumFarPoints, getFrustumPoints, getFrustumExtents query
+- Payment support for iOS/Android
+- Fix for jointMax being infinity in Physics2D Debug Draw
+- Updated device_initialization to output to console for fullscreen apps
+- Exposed the ability for the Graphics Device to be created with disabled stencil and depth buffers
+- Fixed an animation issue in addTime() for animations with zero length
+- Fixed an processing issue for cubemaps with a single mipmap level
+- Added scene extents to the viewer scene metrics
+- Improvements to fullscreen implementation (also supports IE11)
+- Improvements to DDS loader image processing
+- Removed usage of deprecated event property "event.keyLocation" in the Input Device
+- Added check when using Workers for processing DDS textures on unsupported platforms
+- Added support for proposed canvas API resetTransform to canvas.js
+- Updated documentation about developer clients
+- Deprecated the *plugin-debug* build.  Sample apps no longer ship in this configuration.
+- Fixed tools build under clang 3.3
+- Changed default materialColor and uvTransform setting behaviour in the renderers to set on the sharedMaterial
+  instead of each renderable
+
+
 Version 1.2
 -----------
 
@@ -18,12 +120,13 @@ Version 1.2
 - Fixed animation NodeTransformControllers which would not bind to multiple root nodes in a scene.
 - Added method Material.clone.
 - Added default effect callbacks for all the renderers:
-    * defaultPrepareFn
-    * defaultUpdateFn
-    * defaultSkinnedUpdateFn
-    * defaultShadowMappingUpdateFn
-    * defaultShadowMappingSkinnedUpdateFn
-    * loadTechniquesFn
+
+  * defaultPrepareFn
+  * defaultUpdateFn
+  * defaultSkinnedUpdateFn
+  * defaultShadowMappingUpdateFn
+  * defaultShadowMappingSkinnedUpdateFn
+  * loadTechniquesFn
 - Added VERTEX_SHADER_PRECISION and FRAGMENT_SHADER_PRECISION to GraphicsDevice.maxSupported.
 - Added utility function PhysicsManager.addNode.
 - Fixed CanvasContext.fillText to support scale and rotation transforms.
@@ -66,6 +169,7 @@ Version 1.1
 2013-06-04
 
 - Update protolib library (version 0.2.0):
+
   * Added version number field.
   * Added horizontalAlign, verticalAlign properties to drawText.
   * Depricated alignment property of drawText and textAlignment enum.

@@ -1,6 +1,8 @@
-// Copyright (c) 2011-2013 Turbulenz Limited
-
 declare var WebGLMathDevice : MathDevice;
+// Copyright (c) 2011-2013 Turbulenz Limited
+/* global debug: false*/
+/* global VMath: false*/
+/* global WebGLMathDevice: true*/
 WebGLMathDevice = VMath;
 
 debug.evaluate(function debugSetupMathDevice () {
@@ -1614,7 +1616,7 @@ WebGLMathDevice =
         return this._vmath.quatEqual(q1, q2, precision);
     },
 
-    quatPosBuild : function quatPosBuildFn(x, y, z, w, px, py, pz, dst?)
+    quatPosBuild : function quatPosBuildFn(x, y, z?, w?, px?, py?, pz?, dst?)
     {
         if (arguments.length < 7)
         {

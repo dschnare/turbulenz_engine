@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2012 Turbulenz Limited
+// Copyright (c) 2009-2014 Turbulenz Limited
 
 class Floor
 {
@@ -8,6 +8,8 @@ class Floor
     color       : any; // v4
     fadeToColor : any; // v4
     numLines    : number;
+
+    _frustumPoints: any[];
 
     // Constructor function
     static create(gd: any, md: any): Floor
@@ -99,7 +101,9 @@ class Floor
             frustumMaxX = -maxValue;
             frustumMaxZ = -maxValue;
 
-            var frustumPoints = camera.getFrustumPoints();
+            var frustumPoints = camera.getFrustumPoints(camera.farPlane,
+                                                        camera.nearPlane,
+                                                        (<Floor><any>this)._frustumPoints);
             intersect(frustumPoints[0], frustumPoints[4]);
             intersect(frustumPoints[1], frustumPoints[5]);
             intersect(frustumPoints[2], frustumPoints[6]);
@@ -264,4 +268,5 @@ class Floor
 
 Floor.prototype.color       = [0.1, 0.1, 1.0, 1.0],
 Floor.prototype.fadeToColor = [0.95, 0.95, 1.0, 1.0],
-Floor.prototype.numLines    = 200
+Floor.prototype.numLines    = 200;
+Floor.prototype._frustumPoints = [];

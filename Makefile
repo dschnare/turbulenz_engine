@@ -78,7 +78,7 @@ services_deps := utilities debug servicedatatypes
 
 # tzdraw2d
 tzdraw2d_src := $(TS_SRC_DIR)/draw2d.ts
-tzdraw2d_deps = platform
+tzdraw2d_deps = platform debug
 
 # physics2d
 physics2d_src := $(addprefix $(TS_SRC_DIR)/, \
@@ -113,7 +113,8 @@ jsengine_src := $(addprefix $(TS_SRC_DIR)/, \
   animation.ts animationmanager.ts defaultrendering.ts loadingscreen.ts \
   effectmanager.ts material.ts floor.ts geometry.ts \
   light.ts mouseforces.ts physicsmanager.ts posteffects.ts renderingcommon.ts \
-  resourceloader.ts scene.ts scenenode.ts shadowmapping.ts textureeffects.ts  \
+  resourceloader.ts scene.ts scenenode.ts shadowmapping.ts cascadedshadows.ts \
+  textureeffects.ts  \
 )
 jsengine_deps := services aabbtree jsengine_base
 
@@ -140,10 +141,15 @@ jsengine_debug_deps := jsengine
 capturedevices_src := tslib/capturegraphicsdevice.ts
 capturedevices_deps := platform debug
 
+# particlesystem
+particlesystem_src := tslib/particlesystem.ts
+particlesystem_deps := platform debug jsengine
+
 TSLIBS += platform debug vmath aabbtree physics_canvas platform_canvas   \
   utilities services tzdraw2d physics2d fontmanager canvas jsengine_base \
   jsengine jsengine_simplerendering jsengine_deferredrendering           \
-  jsengine_forwardrendering jsengine_debug capturedevices svg spatialgrid
+  jsengine_forwardrendering jsengine_debug capturedevices svg spatialgrid \
+  particlesystem
 
 # Check we haven't forgotten any tslib files
 ifeq (macosx,$(TARGET))
